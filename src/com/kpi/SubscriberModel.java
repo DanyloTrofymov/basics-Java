@@ -19,4 +19,26 @@ public class SubscriberModel {
         }
         return allSubscribers;
     }
+
+    public ArrayList<Subscriber> intracityMoreThen(int minutes){
+        ArrayList<Subscriber> found = new ArrayList<Subscriber>();
+        for(int i = 0; i < allSubscribers.size(); i++){
+            Subscriber sub = allSubscribers.get(i);
+            if(sub.getIntracityTalk() > minutes){
+                found.add(sub);
+            }
+        }
+        return found;
+    }
+
+    public ArrayList<Subscriber> usedIntercityCommunication(){
+        ArrayList<Subscriber> found = new ArrayList<Subscriber>();
+        for(int i = 0; i < allSubscribers.size(); i++){
+            Subscriber sub = allSubscribers.get(i);
+            if(sub.getIntercityTalk() > 0){
+                found.add(sub);
+            }
+        }
+        return found;
+    }
 }

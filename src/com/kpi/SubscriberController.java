@@ -1,6 +1,6 @@
 package com.kpi;
 
-import java.util.ArrayList;
+import com.kpi.exceptions.EmptyResultException;
 
 public class SubscriberController {
     private SubscriberModel model;
@@ -11,40 +11,23 @@ public class SubscriberController {
         this.view = view;
     }
 
-    public void start(){
+    public void start() {
         do {
             int func = view.chooseFunction();
-            if(func == 1){
+            if(func == 0){
+                break;
+            }
+            else if(func == 1){
                 int minutes = view.countOfMinutes();
-                view.printArray(intracityMoreThen(minutes));
+                if(minutes == -1){
+                    view.getPrinter().printTryAgain();
+                    continue;
+                }
+                view.printArray(model.intracityMoreThen(minutes));
             }
             else if(func == 2){
-                view.printArray(usedIntercityCommunication());
+                view.printArray(model.usedIntercityCommunication());
             }
-        }while (view.toContinue());
-    }
-
-    private ArrayList<Subscriber> intracityMoreThen(int minutes){
-        ArrayList<Subscriber> all = model.getAllCustomersInSystem();
-        ArrayList<Subscriber> found = new ArrayList<Subscriber>();
-        for(int i = 0; i < all.size(); i++){
-            Subscriber sub = all.get(i);
-            if(sub.getIntracityTalk() > minutes){
-                found.add(sub);
-            }
-        }
-        return found;
-    }
-
-    private ArrayList<Subscriber> usedIntercityCommunication(){
-        ArrayList<Subscriber> all = model.getAllCustomersInSystem();
-        ArrayList<Subscriber> found = new ArrayList<Subscriber>();
-        for(int i = 0; i < all.size(); i++){
-            Subscriber sub = all.get(i);
-            if(sub.getIntercityTalk() > 0){
-                found.add(sub);
-            }
-        }
-        return found;
+        }while (true);
     }
 }

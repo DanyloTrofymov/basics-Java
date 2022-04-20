@@ -1,5 +1,9 @@
 package com.kpi;
 
+import com.kpi.exceptions.EmptyResultException;
+import com.kpi.exceptions.WrongFunctionException;
+import com.kpi.exceptions.WrongInputNumberException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,39 +14,49 @@ public class SubscriberView {
         this.printer = printer;
     }
 
+    public ConsolePrinter getPrinter() {
+        return printer;
+    }
 
     public int chooseFunction() {
         Scanner scanner = new Scanner(System.in);
         printer.printInputPleaseMsg();
-        int functionType = scanner.nextInt();
-        if (functionType == 1 || functionType == 2) {
+        String functionTypeString = scanner.next();
+        try {
+            Validator.validatePositiveNumbersInput(functionTypeString);
+            int functionType = Integer.parseInt(functionTypeString);
+            Validator.checkFunctionType(functionType);
             return functionType;
-        } else {
-            printer.printImpossibleFunction();
-            return 0;
+        } catch (WrongInputNumberException | WrongFunctionException e) {
+            printer.print(e.getMessage());
+            printer.printTryAgain();
         }
+        return -1;
     }
 
-    public boolean toContinue() {
-        Scanner scanner = new Scanner(System.in);
-        printer.printWantToContinueMsg();
-        int wantTo = scanner.nextInt();
-        if(wantTo == 0){
-            return false;
-        }
-        else{
-            return true;
-        }
-    }
     public int countOfMinutes() {
         Scanner scanner = new Scanner(System.in);
         printer.printCountOfMinutes();
-        int minutes = scanner.nextInt();
+        String minutesString = scanner.next();
+        int minutes = -1;
+        try {
+            Validator.validatePositiveNumbersInput(minutesString);
+            minutes = Integer.parseInt(minutesString);
+
+        } catch (WrongInputNumberException e) {
+            printer.print(e.getMessage());
+        }
         return minutes;
-    }
+}
+
     public void printArray(ArrayList<Subscriber> subs) {
-        for(int i=0; i < subs.size(); i++){
-            System.out.println(subs.get(i));
+        try {
+        Validator.checkResult(subs);
+            for (Subscriber sub : subs) {
+                printer.print(sub.toString());
+            }
+        } catch (EmptyResultException e) {
+            printer.print(e.getMessage());
         }
     }
 }

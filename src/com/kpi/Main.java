@@ -1,5 +1,7 @@
 package com.kpi;
 
+import com.kpi.exceptions.EmptyResultException;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -9,8 +11,6 @@ public class Main {
         SubscriberController controller = new SubscriberController(model, view);
 
         controller.start();
-
-
 
     }
 

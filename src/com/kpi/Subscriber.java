@@ -1,6 +1,13 @@
 package com.kpi;
 
 public class Subscriber {
+    private String firstName;
+    private String lastName;
+    private String patronymic;
+    private String address;
+    private int intercityTalk;
+    private int intracityTalk;
+
     public Subscriber(String firstName, String lastName, String patronymic, String address, int intercityTalk, int intracityTalk) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -34,9 +41,7 @@ public class Subscriber {
         return intracityTalk;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
@@ -69,10 +74,4 @@ public class Subscriber {
                 "IntracityTalk:" + intracityTalk + " mins \n";
     }
 
-    private String firstName;
-    private String lastName;
-    private String patronymic;
-    private String address;
-    private int intercityTalk;
-    private int intracityTalk;
 }
