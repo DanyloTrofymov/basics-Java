@@ -9,7 +9,5 @@ public class Main {
         SubscriberController controller = new SubscriberController(model, view);
 
         controller.start();
-
     }
-
 }

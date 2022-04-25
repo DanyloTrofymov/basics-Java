@@ -17,6 +17,12 @@ public class Validator {
         throw new WrongInputNumberException();
     }
 
+    public static void validatePositiveNumbersInput(int num) throws WrongInputNumberException {
+        if (num >= 0)
+            return;
+        throw new WrongInputNumberException();
+    }
+
     public static void checkFunctionType(int num) throws WrongFunctionException {
         if (!(num == 1 || num == 2 || num == 0)) {
             throw new WrongFunctionException();

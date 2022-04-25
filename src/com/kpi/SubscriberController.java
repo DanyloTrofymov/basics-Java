@@ -19,19 +19,16 @@ public class SubscriberController {
                 int func = view.chooseFunction();
                 Validator.checkFunctionType(func);
                 switch (func) {
-                    case 0: {
+                    case 0 -> {
                         work = false;
-                        break;
                     }
-                    case 1: {
+                    case 1 -> {
                         int minutes = view.countOfMinutes();
-                        Validator.validatePositiveNumbersInput(Integer.toString(func));
+                        Validator.validatePositiveNumbersInput(minutes);
                         view.printArray(model.intracityMoreThen(minutes));
-                        break;
                     }
-                    case 2: {
+                    case 2 -> {
                         view.printArray(model.usedIntercityCommunication());
-                        break;
                     }
                 }
             } while (work);
