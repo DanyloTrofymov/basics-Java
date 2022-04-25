@@ -1,4 +1,4 @@
-package com.kpi;
+package com.kpi.lab;
 
 import com.github.cliftonlabs.json_simple.JsonObject;
 

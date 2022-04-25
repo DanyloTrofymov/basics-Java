@@ -1,9 +1,12 @@
-package com.kpi;
+package com.kpi.lab;
 
-import com.kpi.exceptions.WrongFunctionException;
-import com.kpi.exceptions.WrongInputNumberException;
+import com.kpi.lab.exceptions.WrongFunctionException;
+import com.kpi.lab.exceptions.WrongInputNumberException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SubscriberController {
+    private static final Logger logger = LoggerFactory.getLogger(SubscriberView.class);
     private final SubscriberModel model;
     private final SubscriberView view;
 
@@ -49,6 +52,7 @@ public class SubscriberController {
                 }
             } while (work);
         } catch (WrongInputNumberException | WrongFunctionException e) {
+            logger.error(e.getMessage(), e);
             view.getPrinter().print(e.getMessage());
         }
     }

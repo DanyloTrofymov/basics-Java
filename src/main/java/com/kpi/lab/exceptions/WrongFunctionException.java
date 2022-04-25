@@ -1,4 +1,4 @@
-package com.kpi.exceptions;
+package com.kpi.lab.exceptions;
 
 public class WrongFunctionException extends Exception{
     public WrongFunctionException(){

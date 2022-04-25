@@ -1,9 +1,11 @@
-package com.kpi;
+package com.kpi.lab;
 
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonException;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,7 +15,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
 public class SubscriberModel {
-
+    private static final Logger logger = LoggerFactory.getLogger(SubscriberModel.class);
     private final int NUMBER_OF_SUBSCRIBERS = 20;
     private ArrayList<Subscriber> allSubscribers;
 
@@ -23,12 +25,11 @@ public class SubscriberModel {
         return allSubscribers;
     }
 
-    public ArrayList<Subscriber> generateData(){
+    public void generateData(){
         allSubscribers.clear();
         for(int i = 0; i < NUMBER_OF_SUBSCRIBERS; i++){
             allSubscribers.add(SubscriberFactory.getSubscribernstance());
         }
-        return allSubscribers;
     }
 
     public ArrayList<Subscriber> intracityMoreThen(int minutes){
@@ -72,6 +73,7 @@ public class SubscriberModel {
         try {
             Files.write(path, jsonText.getBytes(), StandardOpenOption.CREATE);
         }catch (IOException e){
+            logger.error(e.getMessage(), e);
             System.out.println("Saving error:" + e.getMessage());
         }
     }
@@ -87,11 +89,13 @@ public class SubscriberModel {
             jsonText = new String(Files.readAllBytes(path));
 
         }catch (Exception e){
+            logger.error(e.getMessage(), e);
             System.out.println("Loading error:" + e.getMessage());
         }
         try {
             ja = (JsonArray)Jsoner.deserialize(jsonText);
         } catch (JsonException e) {
+            logger.error(e.getMessage(), e);
             System.out.println("Loading error:" + e.getMessage());
         }
 

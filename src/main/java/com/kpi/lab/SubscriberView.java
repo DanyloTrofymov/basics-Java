@@ -1,15 +1,17 @@
-package com.kpi;
+package com.kpi.lab;
 
-import com.kpi.exceptions.EmptyResultException;
-import com.kpi.exceptions.WrongFunctionException;
-import com.kpi.exceptions.WrongInputNumberException;
+import com.kpi.lab.exceptions.EmptyResultException;
+import com.kpi.lab.exceptions.WrongFunctionException;
+import com.kpi.lab.exceptions.WrongInputNumberException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SubscriberView {
-    private ConsolePrinter printer;
-
+    private final ConsolePrinter printer;
+    private static final Logger logger = LoggerFactory.getLogger(SubscriberView.class);
     public SubscriberView(ConsolePrinter printer) {
         this.printer = printer;
     }
@@ -28,6 +30,7 @@ public class SubscriberView {
             Validator.checkFunctionType(functionType);
             return functionType;
         } catch (WrongInputNumberException | WrongFunctionException e) {
+            logger.error(e.getMessage(), e);
             printer.print(e.getMessage());
             printer.printTryAgain();
         }
@@ -44,6 +47,7 @@ public class SubscriberView {
             minutes = Integer.parseInt(minutesString);
 
         } catch (WrongInputNumberException e) {
+            logger.error(e.getMessage(), e);
             printer.print(e.getMessage());
         }
         return minutes;
@@ -56,6 +60,7 @@ public class SubscriberView {
                 printer.print(sub.toString());
             }
         } catch (EmptyResultException e) {
+            logger.error(e.getMessage(), e);
             printer.print(e.getMessage());
         }
     }

@@ -1,4 +1,4 @@
-package com.kpi;
+package com.kpi.lab;
 
 public class Main {
 

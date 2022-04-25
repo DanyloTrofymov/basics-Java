@@ -1,8 +1,8 @@
-package com.kpi;
+package com.kpi.lab;
 
-import com.kpi.exceptions.EmptyResultException;
-import com.kpi.exceptions.WrongFunctionException;
-import com.kpi.exceptions.WrongInputNumberException;
+import com.kpi.lab.exceptions.EmptyResultException;
+import com.kpi.lab.exceptions.WrongFunctionException;
+import com.kpi.lab.exceptions.WrongInputNumberException;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;

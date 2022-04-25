@@ -1,4 +1,4 @@
-package com.kpi.exceptions;
+package com.kpi.lab.exceptions;
 
 public class WrongInputNumberException extends Exception {
     public WrongInputNumberException(){
