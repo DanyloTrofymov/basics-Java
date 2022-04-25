@@ -72,7 +72,7 @@ public class SubscriberModel {
         try {
             Files.write(path, jsonText.getBytes(), StandardOpenOption.CREATE);
         }catch (IOException e){
-            throw new RuntimeException(e);
+            System.out.println("Saving error:" + e.getMessage());
         }
     }
 
@@ -87,12 +87,12 @@ public class SubscriberModel {
             jsonText = new String(Files.readAllBytes(path));
 
         }catch (Exception e){
-            throw new RuntimeException(e);
+            System.out.println("Loading error:" + e.getMessage());
         }
         try {
             ja = (JsonArray)Jsoner.deserialize(jsonText);
         } catch (JsonException e) {
-            throw new RuntimeException(e);
+            System.out.println("Loading error:" + e.getMessage());
         }
 
         for(Object object: ja){
