@@ -24,7 +24,7 @@ public class Validator {
     }
 
     public static void checkFunctionType(int num) throws WrongFunctionException {
-        if (!(num == 1 || num == 2 || num == 0)) {
+        if (num < 0 || num > 6) {
             throw new WrongFunctionException();
         }
     }
