@@ -1,19 +1,30 @@
 package com.kpi;
 
+import com.github.cliftonlabs.json_simple.JsonArray;
+import com.github.cliftonlabs.json_simple.JsonException;
+import com.github.cliftonlabs.json_simple.JsonObject;
+import com.github.cliftonlabs.json_simple.Jsoner;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
 public class SubscriberModel {
 
     private final int NUMBER_OF_SUBSCRIBERS = 20;
-    private ArrayList<Subscriber> allSubscribers = new ArrayList<Subscriber>();
+    private ArrayList<Subscriber> allSubscribers;
 
-    public SubscriberModel(){ this.allSubscribers = fetchData(); }
+    public SubscriberModel(){ this.allSubscribers = new ArrayList<>(); }
 
     public ArrayList<Subscriber> getAllCustomersInSystem() {
         return allSubscribers;
     }
 
-    private ArrayList<Subscriber> fetchData(){
+    public ArrayList<Subscriber> generateData(){
+        allSubscribers.clear();
         for(int i = 0; i < NUMBER_OF_SUBSCRIBERS; i++){
             allSubscribers.add(SubscriberFactory.getSubscribernstance());
         }
@@ -40,5 +51,54 @@ public class SubscriberModel {
             }
         }
         return found;
+    }
+
+    public Path getDefaultPath(){
+        String home = System.getProperty("user.home");
+        return Paths.get(home).resolve("storage.Json");
+    }
+
+    public void save(){
+        save(getDefaultPath());
+    }
+
+    public void save(Path path){
+        ArrayList<Subscriber> subs = getAllCustomersInSystem();
+        JsonArray ja = new JsonArray();
+        for(Subscriber sub: subs){
+            ja.add(Subscriber.toJsonObject(sub));
+        }
+        String jsonText = Jsoner.serialize(ja);
+        try {
+            Files.write(path, jsonText.getBytes(), StandardOpenOption.CREATE);
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void load(){
+        load(getDefaultPath());
+    }
+    public void load(Path path){
+        JsonArray ja = null;
+        String jsonText = null;
+        ArrayList<Subscriber> subs = new ArrayList<>();
+        try {
+            jsonText = new String(Files.readAllBytes(path));
+
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+        try {
+            ja = (JsonArray)Jsoner.deserialize(jsonText);
+        } catch (JsonException e) {
+            throw new RuntimeException(e);
+        }
+
+        for(Object object: ja){
+            JsonObject jo = (JsonObject) object;
+            subs.add(Subscriber.fromJsonObject(jo));
+        }
+        allSubscribers = subs;
     }
 }
