@@ -4,8 +4,8 @@ import com.kpi.exceptions.WrongFunctionException;
 import com.kpi.exceptions.WrongInputNumberException;
 
 public class SubscriberController {
-    private final SubscriberModel model;
-    private final SubscriberView view;
+    private SubscriberModel model;
+    private SubscriberView view;
 
     public SubscriberController(SubscriberModel model, SubscriberView view) {
         this.model = model;
@@ -29,22 +29,6 @@ public class SubscriberController {
                     }
                     case 2 -> {
                         view.printArray(model.usedIntercityCommunication());
-                    }
-                    case 3 -> {
-                        model.save();
-                        view.getPrinter().printSavedMsg();
-                    }
-                    case 4 -> {
-                        model.load();
-                        view.getPrinter().printLoadedMsg();
-                    }
-                    case 5 -> {
-                        model.generateData();
-                        view.getPrinter().printGeneratedMsg();
-                    }
-                    case 6 -> {
-                        view.getPrinter().printAllDAtaMsg();
-                        view.printArray(model.getAllCustomersInSystem());
                     }
                 }
             } while (work);
