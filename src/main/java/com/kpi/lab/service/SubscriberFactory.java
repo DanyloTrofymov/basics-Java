@@ -7,6 +7,7 @@ public class SubscriberFactory {
     private static final String[] POSSIBLE_SECOND_NAMES;
     private static final String[] POSSIBLE_PATRONYMIC;
     private static final String[] POSSIBLE_ADDRESSES;
+    public static final int NUMBER_OF_SUBSCRIBERS = 20;
 
     static{
         POSSIBLE_FIRST_NAMES = new String[]{
