@@ -3,7 +3,9 @@ package com.kpi.lab.service;
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
-import com.kpi.lab.Subscriber;
+import com.kpi.lab.entity.Subscriber;
+import com.kpi.lab.model.SubscriberModel;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -15,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataManager {
-
+    private static final Logger logger = Logger.getLogger(SubscriberModel.class);
     public static Path getDefaultPath(){
         String dir = System.getProperty("user.dir") + System.getProperty("file.separator") + "server storage";
         return Paths.get(dir).resolve("storage.json");
@@ -26,6 +28,7 @@ public class DataManager {
     }
 
     public static void save(Path path, List<Subscriber> subs) throws Exception {
+        logger.info("Function \"save\" has called");
         JsonArray ja = new JsonArray();
         for(Subscriber sub: subs){
             ja.add(toJsonObject(sub));
@@ -42,6 +45,7 @@ public class DataManager {
         return load(getDefaultPath());
     }
     public static List<Subscriber> load(Path path) throws Exception {
+        logger.info("Function \"load\" has called");
         JsonArray ja;
         String jsonText;
         ArrayList<Subscriber> subs= new ArrayList<>();
@@ -77,5 +81,12 @@ public class DataManager {
         jo.put("Intercity", sub.getIntercityTalk());
         jo.put("Intracity", sub.getIntracityTalk());
         return jo;
+    }
+    public static List<Subscriber> generateTestData() {
+        List<Subscriber> subs= new ArrayList<>();
+        for (int i = 0; i < SubscriberFactory.NUMBER_OF_SUBSCRIBERS; i++) {
+            subs.add(SubscriberFactory.getSubscribernstance());
+        }
+        return subs;
     }
 }

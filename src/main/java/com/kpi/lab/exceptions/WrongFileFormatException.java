@@ -1,5 +1,5 @@
 package com.kpi.lab.exceptions;
 
-public class FileFormatError extends RuntimeException{
-    public FileFormatError() {super("Wrong file format!"); }
+public class WrongFileFormatException extends RuntimeException{
+    public WrongFileFormatException() {super("Wrong file format!"); }
 }

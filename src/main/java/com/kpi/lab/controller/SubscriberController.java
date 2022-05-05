@@ -1,5 +1,9 @@
-package com.kpi.lab;
+package com.kpi.lab.controller;
 
+import com.kpi.lab.service.DataManager;
+import com.kpi.lab.entity.Subscriber;
+import com.kpi.lab.model.SubscriberModel;
+import com.kpi.lab.service.Validator;
 import com.kpi.lab.view.ConsolePrinter;
 import com.kpi.lab.view.SubscriberView;
 import org.apache.log4j.Logger;
@@ -65,7 +69,7 @@ public class SubscriberController {
                     loadDataController();
                 }
                 case 5 -> {
-                    model.generateData();
+                    model.loadTestData();
                     printer.print(ConsolePrinter.GENERATED);
                 }
                 case 6 -> {

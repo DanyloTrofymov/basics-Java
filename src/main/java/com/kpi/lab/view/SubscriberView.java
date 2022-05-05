@@ -1,62 +1,75 @@
-package com.kpi.lab;
+package com.kpi.lab.view;
 
-import com.kpi.lab.exceptions.EmptyResultException;
+import com.kpi.lab.service.Validator;
 import com.kpi.lab.exceptions.WrongFunctionException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 
-import java.util.List;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class SubscriberView {
     private final ConsolePrinter printer;
-    private static final Logger logger = LoggerFactory.getLogger(SubscriberView.class);
+    private static final Logger logger = Logger.getLogger(SubscriberView.class);
+    private final Scanner scanner = new Scanner(System.in);
     public SubscriberView(ConsolePrinter printer) {
         this.printer = printer;
     }
 
     public int chooseFunction() {
+        printer.print(ConsolePrinter.MENU);
+        do {
         Scanner scanner = new Scanner(System.in);
         String functionTypeString = scanner.next();
         try {
             int functionType = Integer.parseInt(functionTypeString);
-            Validator.checkFunctionType(functionType);
+            Validator.validateFunctionType(functionType);
             return functionType;
-        } catch ( WrongFunctionException e) {
+        } catch (WrongFunctionException e) {
             logger.error(e.getMessage(), e);
-            printer.print(e.getMessage());
-            printer.print(printer.TRY_AGAIN);
+            printer.print(ConsolePrinter.WRONG_FUNCTION);
+            printer.print(ConsolePrinter.TRY_AGAIN);
         }
-        return -1;
+        }while(true);
     }
 
     public int countOfMinutes() {
-        Scanner scanner = new Scanner(System.in);
-        printer.print(printer.COUNT_OF_MINUTES);
-        String minutesString = scanner.next();
-        int minutes = -1;
-        try {
-            minutes = Integer.parseInt(minutesString);
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-            printer.print(e.getMessage());
-        }
-        return minutes;
-}
-
-    public void outputArray(List<Subscriber> subs) {
-        try {
-        Validator.checkResult(subs);
-            for (Subscriber sub : subs) {
-                printer.print(sub.toString());
+        printer.print(ConsolePrinter.COUNT_OF_MINUTES);
+        do {
+            String minutesString = scanner.next();
+            try {
+                int minutes = Integer.parseInt(minutesString);
+                Validator.validatePositiveNumbersInput(minutes);
+                return minutes;
+            } catch (Exception e) {
+                logger.error(e.getMessage(), e);
+                printer.print(ConsolePrinter.NEGATIVE_NUMBER);
+                printer.print(ConsolePrinter.TRY_AGAIN);
             }
-        } catch (EmptyResultException e) {
-            logger.error(e.getMessage(), e);
-            printer.print(e.getMessage());
-        }
+        }while(true);
     }
-
-    public void outputMessage(String msg){
-        printer.print(msg);
+    public boolean wantToSave(){
+        printer.print(ConsolePrinter.WANT_TO_SAVE);
+        String answ = scanner.next();
+        return answ.equalsIgnoreCase("y");
+    }
+    public Path getPath() {
+        printer.print(ConsolePrinter.ENTER_PATH);
+        do {
+            try {
+                String dir = scanner.next();
+                if (dir.equalsIgnoreCase("default")) {
+                    dir = System.getProperty("user.dir") + System.getProperty("file.separator") + "client storage";
+                    return Paths.get(dir).resolve("result.json");
+                } else {
+                    Validator.validateFileFormat(dir);
+                    return Paths.get(dir);
+                }
+            } catch (Exception e) {
+                logger.error(e.getMessage(), e);
+                printer.print(ConsolePrinter.WRONG_FILE_FORMAT);
+                printer.print(ConsolePrinter.TRY_AGAIN);
+            }
+        } while (true);
     }
 }

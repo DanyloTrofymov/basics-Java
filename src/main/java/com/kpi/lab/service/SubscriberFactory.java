@@ -1,4 +1,6 @@
-package com.kpi.lab;
+package com.kpi.lab.service;
+
+import com.kpi.lab.entity.Subscriber;
 
 import java.util.Random;
 

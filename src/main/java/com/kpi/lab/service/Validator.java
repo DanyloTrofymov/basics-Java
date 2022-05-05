@@ -1,6 +1,6 @@
 package com.kpi.lab.service;
 
-import com.kpi.lab.Subscriber;
+import com.kpi.lab.entity.Subscriber;
 import com.kpi.lab.exceptions.NoDataException;
 import com.kpi.lab.exceptions.WrongFileFormatException;
 import com.kpi.lab.exceptions.WrongFunctionException;
