@@ -1,15 +1,16 @@
 package com.kpi.lab.model;
 
 import com.kpi.lab.service.DataManager;
-import com.kpi.lab.entity.Subscriber;
+import com.kpi.lab.model.entity.Subscriber;
 import com.kpi.lab.service.Validator;
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SubscriberModel {
-    private static final Logger logger = Logger.getLogger(SubscriberModel.class);
+    private static final Logger logger = LogManager.getLogger(SubscriberModel.class);
     private List<Subscriber> allSubscribers;
     public SubscriberModel(){ this.allSubscribers = new ArrayList<>(); }
 
@@ -53,5 +54,8 @@ public class SubscriberModel {
     }
     public void load() throws Exception {
         allSubscribers = DataManager.load();
+    }
+    public void save() throws Exception {
+        DataManager.save(allSubscribers);
     }
 }

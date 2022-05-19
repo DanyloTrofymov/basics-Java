@@ -1,4 +1,4 @@
-package com.kpi.lab.exceptions;
+package com.kpi.lab.model.exceptions;
 
 public class NoDataException extends RuntimeException{
     public NoDataException(){

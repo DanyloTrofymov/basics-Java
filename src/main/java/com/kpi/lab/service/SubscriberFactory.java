@@ -1,6 +1,6 @@
 package com.kpi.lab.service;
 
-import com.kpi.lab.entity.Subscriber;
+import com.kpi.lab.model.entity.Subscriber;
 
 import java.util.Random;
 

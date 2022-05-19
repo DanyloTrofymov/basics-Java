@@ -1,7 +1,7 @@
 package com.kpi.lab.view;
 
 import com.kpi.lab.service.Validator;
-import com.kpi.lab.exceptions.WrongFunctionException;
+import com.kpi.lab.model.exceptions.WrongFunctionException;
 import org.apache.log4j.Logger;
 
 import java.nio.file.Path;

@@ -1,9 +1,4 @@
-package com.kpi.lab.entity;
-
-import com.github.cliftonlabs.json_simple.JsonObject;
-
-import java.math.BigDecimal;
-
+package com.kpi.lab.model.entity;
 public class Subscriber {
     private String firstName;
     private String lastName;

@@ -3,8 +3,9 @@ package com.kpi.lab.service;
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
-import com.kpi.lab.entity.Subscriber;
+import com.kpi.lab.model.entity.Subscriber;
 import com.kpi.lab.model.SubscriberModel;
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataManager {
-    private static final Logger logger = Logger.getLogger(SubscriberModel.class);
+    private static final Logger logger = LogManager.getLogger(SubscriberModel.class);
     public static Path getDefaultPath(){
         String dir = System.getProperty("user.dir") + System.getProperty("file.separator") + "server storage";
         return Paths.get(dir).resolve("storage.json");
@@ -37,7 +38,8 @@ public class DataManager {
         try {
             Files.write(path, jsonText.getBytes(), StandardOpenOption.CREATE);
         }catch (IOException e){
-            throw new Exception(e);
+            logger.error(e.getMessage(), e);
+            throw new IOException(e);
         }
     }
 
@@ -58,6 +60,7 @@ public class DataManager {
             }
             return subs;
         }catch (Exception e){
+            logger.fatal(e.getMessage(), e);
             throw new Exception(e);
         }
     }

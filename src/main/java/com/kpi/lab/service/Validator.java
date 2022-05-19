@@ -1,10 +1,10 @@
 package com.kpi.lab.service;
 
-import com.kpi.lab.entity.Subscriber;
-import com.kpi.lab.exceptions.NoDataException;
-import com.kpi.lab.exceptions.WrongFileFormatException;
-import com.kpi.lab.exceptions.WrongFunctionException;
-import com.kpi.lab.exceptions.NegativeNumberException;
+import com.kpi.lab.model.entity.Subscriber;
+import com.kpi.lab.model.exceptions.NoDataException;
+import com.kpi.lab.model.exceptions.WrongFileFormatException;
+import com.kpi.lab.model.exceptions.WrongFunctionException;
+import com.kpi.lab.model.exceptions.NegativeNumberException;
 
 import java.util.List;
 

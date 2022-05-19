@@ -1,18 +1,19 @@
 package com.kpi.lab.controller;
 
 import com.kpi.lab.service.DataManager;
-import com.kpi.lab.entity.Subscriber;
+import com.kpi.lab.model.entity.Subscriber;
 import com.kpi.lab.model.SubscriberModel;
 import com.kpi.lab.service.Validator;
 import com.kpi.lab.view.ConsolePrinter;
 import com.kpi.lab.view.SubscriberView;
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.nio.file.Path;
 import java.util.List;
 
 public class SubscriberController {
-    private static final org.apache.log4j.Logger logger = Logger.getLogger(SubscriberController.class);
+    private static final Logger logger = LogManager.getLogger(SubscriberController.class);
     private final SubscriberModel model;
     private final ConsolePrinter printer;
     private final SubscriberView view;
@@ -92,7 +93,7 @@ public class SubscriberController {
     }
     private void SavaDataController(){
         try {
-            DataManager.save(model.getAllCustomersInSystem());
+            model.save();
             printer.print(ConsolePrinter.SAVED);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
